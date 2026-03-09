@@ -2,6 +2,7 @@
 using System.IO;
 using System.Media;
 using System.Windows;
+using System.Windows.Input;
 using System.Windows.Threading;
 
 namespace PomodoroTimer;
@@ -149,6 +150,24 @@ public partial class MainWindow : Window
     private void BtnSettings_Click(object sender, RoutedEventArgs e)
     {
         ((App)Application.Current).ShowSettings();
+    }
+
+    private void BtnMinimize_Click(object sender, RoutedEventArgs e)
+    {
+        WindowState = WindowState.Minimized;
+    }
+
+    private void BtnHide_Click(object sender, RoutedEventArgs e)
+    {
+        Hide();
+    }
+
+    private void DragArea_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+    {
+        if (e.ButtonState == MouseButtonState.Pressed)
+        {
+            DragMove();
+        }
     }
 
     // ─── Sound ────────────────────────────────────────────────────

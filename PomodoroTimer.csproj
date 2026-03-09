@@ -22,6 +22,7 @@
     <Resource Include="Assets\32.ico" />
     <Resource Include="Assets\48.ico" />
     <Resource Include="Assets\256.ico" />
+    <Resource Include="Assets\Pom500x500.png" />
   </ItemGroup>
 
 </Project>

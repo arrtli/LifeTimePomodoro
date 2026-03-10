@@ -1,8 +1,10 @@
 ﻿using System.ComponentModel;
 using System.IO;
 using System.Media;
+using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Interop;
 using System.Windows.Threading;
 
 namespace PomodoroTimer;
@@ -17,6 +19,36 @@ public partial class MainWindow : Window
     private int _secondsRemaining = 0;  // Seconds remaining during countdown
 
     private readonly DispatcherTimer _timer;
+
+    // ─── WinAPI ────────────────────────────────────────────────────
+    [DllImport("user32.dll")] private static extern int GetWindowLong(IntPtr hWnd, int nIndex);
+    [DllImport("user32.dll")] private static extern int SetWindowLong(IntPtr hWnd, int nIndex, int dwNewLong);
+    private const int GWL_STYLE      = -16;
+    private const int WS_MINIMIZEBOX = 0x00020000;
+
+    // ─── WndProc: minimize on taskbar click when focused ──────────
+    protected override void OnSourceInitialized(EventArgs e)
+    {
+        base.OnSourceInitialized(e);
+        var hwnd = new WindowInteropHelper(this).Handle;
+        // Add WS_MINIMIZEBOX so the taskbar sends SC_MINIMIZE when
+        // the user clicks the taskbar button while the window is active
+        SetWindowLong(hwnd, GWL_STYLE, GetWindowLong(hwnd, GWL_STYLE) | WS_MINIMIZEBOX);
+        HwndSource.FromHwnd(hwnd)?.AddHook(WndProc);
+    }
+
+    private const int WM_SYSCOMMAND = 0x0112;
+    private const int SC_MINIMIZE   = 0xF020;
+
+    private IntPtr WndProc(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
+    {
+        if (msg == WM_SYSCOMMAND && (wParam.ToInt32() & 0xFFF0) == SC_MINIMIZE)
+        {
+            Dispatcher.BeginInvoke(() => WindowState = WindowState.Minimized);
+            handled = true;
+        }
+        return IntPtr.Zero;
+    }
 
     // ─── Constructor ───────────────────────────────────────────────
     public MainWindow()
@@ -144,6 +176,20 @@ public partial class MainWindow : Window
         _secondsRemaining = 0;
         UpdateDisplay();
         UpdateButtons();
+    }
+
+    // ─── Spacebar → Start / Stop ──────────────────────────────────
+    protected override void OnPreviewKeyDown(KeyEventArgs e)
+    {
+        base.OnPreviewKeyDown(e);
+        if (e.Key == Key.Space)
+        {
+            e.Handled = true;
+            if (_state == TimerState.Running)
+                BtnStop_Click(this, new RoutedEventArgs());
+            else if (_state == TimerState.Paused || (_state == TimerState.Idle && _minutesSet > 0))
+                BtnStart_Click(this, new RoutedEventArgs());
+        }
     }
 
     // ─── Settings ─────────────────────────────────────────────────

@@ -140,7 +140,7 @@
                         MouseLeftButtonDown="DragArea_MouseLeftButtonDown"/>
 
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right"
-                            VerticalAlignment="Top" Margin="0,-50,50,0">
+                            VerticalAlignment="Top" Margin="0,-45,50,0">
                     <Button x:Name="BtnSettings"
                             Style="{StaticResource WindowChromeButton}"
                             Content="⚙"
@@ -169,17 +169,27 @@
                     Padding="2,8,2,14"
                     Margin="0,0,0,0">
                 <StackPanel>
-                    <TextBlock x:Name="TbDisplay"
-                               Text="00:00"
-                               FontFamily="{StaticResource DigitalFont}"
-                               FontSize="82"
-                               Foreground="#FFFFF2CD"
-                               HorizontalAlignment="Center">
-                        <TextBlock.Effect>
-                            <DropShadowEffect Color="#FFFF9D4A" BlurRadius="22"
-                                              ShadowDepth="0" Opacity="0.8"/>
-                        </TextBlock.Effect>
-                    </TextBlock>
+                    <Grid HorizontalAlignment="Center">
+                        <!-- Ghost layer: always-visible dim segments for digital dial effect -->
+                        <TextBlock Text="00:00"
+                                   FontFamily="{StaticResource DigitalFont}"
+                                   FontSize="82"
+                                   Foreground="#FFFFF2CD"
+                                   Opacity="0.10"
+                                   HorizontalAlignment="Center"
+                                   IsHitTestVisible="False"/>
+                        <TextBlock x:Name="TbDisplay"
+                                   Text="00:00"
+                                   FontFamily="{StaticResource DigitalFont}"
+                                   FontSize="82"
+                                   Foreground="#FFFFF2CD"
+                                   HorizontalAlignment="Center">
+                            <TextBlock.Effect>
+                                <DropShadowEffect Color="#FFFF9D4A" BlurRadius="22"
+                                                  ShadowDepth="0" Opacity="0.8"/>
+                            </TextBlock.Effect>
+                        </TextBlock>
+                    </Grid>
 
                     <StackPanel Orientation="Horizontal"
                                 HorizontalAlignment="Center"
@@ -207,11 +217,11 @@
                            FontSize="11"
                            VerticalAlignment="Center"
                            Margin="0,0,10,0"/>
-                <Button Content="15 мин" Style="{StaticResource PresetButton}"
+                <Button x:Name="BtnPreset15" Content="15 мин" Style="{StaticResource PresetButton}"
                         Click="BtnPreset_Click" Tag="15" Margin="3,0"/>
-                <Button Content="30 мин" Style="{StaticResource PresetButton}"
+                <Button x:Name="BtnPreset30" Content="30 мин" Style="{StaticResource PresetButton}"
                         Click="BtnPreset_Click" Tag="30" Margin="3,0"/>
-                <Button Content="45 мин" Style="{StaticResource PresetButton}"
+                <Button x:Name="BtnPreset45" Content="45 мин" Style="{StaticResource PresetButton}"
                         Click="BtnPreset_Click" Tag="45" Margin="3,0"/>
             </StackPanel>
 

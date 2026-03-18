@@ -5,6 +5,7 @@ using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Interop;
+using System.Windows.Media.Imaging;
 using System.Windows.Threading;
 
 namespace PomodoroTimer;
@@ -17,6 +18,7 @@ public partial class MainWindow : Window
 
     private int _minutesSet = 30;       // Minutes configured by the user
     private int _secondsRemaining = 0;  // Seconds remaining during countdown
+    private bool _isCompact = false;
 
     private readonly DispatcherTimer _timer;
 
@@ -87,10 +89,11 @@ public partial class MainWindow : Window
     // ─── Display ───────────────────────────────────────────────────
     private void UpdateDisplay()
     {
-        if (_state == TimerState.Idle)
-            TbDisplay.Text = $"{_minutesSet:D2}:00";
-        else
-            TbDisplay.Text = $"{_secondsRemaining / 60:D2}:{_secondsRemaining % 60:D2}";
+        string text = _state == TimerState.Idle
+            ? $"{_minutesSet:D2}:00"
+            : $"{_secondsRemaining / 60:D2}:{_secondsRemaining % 60:D2}";
+        TbDisplay.Text = text;
+        TbDisplayCompact.Text = text;
     }
 
     // ─── Button states ────────────────────────────────────────────
@@ -105,6 +108,8 @@ public partial class MainWindow : Window
         BtnReset.IsEnabled  = !idle || _minutesSet > 0;
         BtnMinUp.IsEnabled  = idle;
         BtnMinDown.IsEnabled = idle;
+        BtnStartCompact.IsEnabled = (idle && _minutesSet > 0) || paused;
+        BtnStopCompact.IsEnabled  = running;
 
         // Update title bar with remaining time when running/paused
         Title = running || paused
@@ -191,6 +196,30 @@ public partial class MainWindow : Window
                 BtnStart_Click(this, new RoutedEventArgs());
         }
     }
+
+    // ─── Compact mode ─────────────────────────────────────────────
+    private void SetCompactMode(bool compact)
+    {
+        _isCompact = compact;
+        if (compact)
+        {
+            MinWidth = MaxWidth = Width = 200;
+            MinHeight = MaxHeight = Height = 200;
+            ImgBackground.Source = new BitmapImage(new Uri("pack://application:,,,/Assets/Pom200x200.png"));
+            PanelFull.Visibility = Visibility.Collapsed;
+            PanelCompact.Visibility = Visibility.Visible;
+        }
+        else
+        {
+            MinWidth = MaxWidth = Width = 400;
+            MinHeight = MaxHeight = Height = 400;
+            ImgBackground.Source = new BitmapImage(new Uri("pack://application:,,,/Assets/Pom400x400.png"));
+            PanelFull.Visibility = Visibility.Visible;
+            PanelCompact.Visibility = Visibility.Collapsed;
+        }
+    }
+
+    private void BtnCompact_Click(object sender, RoutedEventArgs e) => SetCompactMode(!_isCompact);
 
     // ─── Settings ─────────────────────────────────────────────────
     private void BtnSettings_Click(object sender, RoutedEventArgs e)

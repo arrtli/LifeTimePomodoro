@@ -17,12 +17,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Fonts\DSEG7Classic-Regular.ttf" />
-    <Resource Include="Assets\16.ico" />
-    <Resource Include="Assets\32.ico" />
-    <Resource Include="Assets\48.ico" />
-    <Resource Include="Assets\256.ico" />
-    <Resource Include="Assets\Pom500x500.png" />
+    <Resource Include="Fonts\**" />
+    <Resource Include="Assets\**" />
   </ItemGroup>
 
 </Project>

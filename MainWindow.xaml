@@ -3,9 +3,9 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Pomodoro Timer"
         Icon="/Assets/32.ico"
-    Height="500" Width="500"
-    MinHeight="500" MinWidth="500"
-    MaxHeight="500" MaxWidth="500"
+    Height="400" Width="400"
+    MinHeight="400" MinWidth="400"
+    MaxHeight="400" MaxWidth="400"
     Background="Transparent"
     AllowsTransparency="True"
     WindowStyle="None"
@@ -25,8 +25,8 @@
             <Setter Property="BorderBrush" Value="#66FFD27A"/>
             <Setter Property="BorderThickness" Value="1"/>
             <Setter Property="FontFamily" Value="Segoe UI"/>
-            <Setter Property="FontSize" Value="13"/>
-            <Setter Property="Height" Value="38"/>
+            <Setter Property="FontSize" Value="10"/>
+            <Setter Property="Height" Value="30"/>
             <Setter Property="Cursor" Value="Hand"/>
             <Setter Property="Template">
                 <Setter.Value>
@@ -35,7 +35,7 @@
                                 Background="{TemplateBinding Background}"
                                 BorderBrush="{TemplateBinding BorderBrush}"
                                 BorderThickness="{TemplateBinding BorderThickness}"
-                                CornerRadius="8">
+                                CornerRadius="6">
                             <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         </Border>
                         <ControlTemplate.Triggers>
@@ -58,9 +58,9 @@
 
         <!-- Preset button style -->
         <Style x:Key="PresetButton" TargetType="Button" BasedOn="{StaticResource ActionButton}">
-            <Setter Property="Height" Value="30"/>
-            <Setter Property="Width" Value="70"/>
-            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="Height" Value="24"/>
+            <Setter Property="Width" Value="56"/>
+            <Setter Property="FontSize" Value="10"/>
             <Setter Property="Foreground" Value="#FFD7F0FF"/>
         </Style>
 
@@ -70,8 +70,8 @@
             <Setter Property="Foreground" Value="#FFD7F0FF"/>
             <Setter Property="BorderBrush" Value="#66FFD27A"/>
             <Setter Property="BorderThickness" Value="1"/>
-            <Setter Property="Width" Value="34"/>
-            <Setter Property="Height" Value="28"/>
+            <Setter Property="Width" Value="27"/>
+            <Setter Property="Height" Value="22"/>
             <Setter Property="Cursor" Value="Hand"/>
             <Setter Property="Delay" Value="400"/>
             <Setter Property="Interval" Value="80"/>
@@ -82,7 +82,7 @@
                                 Background="{TemplateBinding Background}"
                                 BorderBrush="{TemplateBinding BorderBrush}"
                                 BorderThickness="{TemplateBinding BorderThickness}"
-                                CornerRadius="5">
+                                CornerRadius="4">
                             <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         </Border>
                         <ControlTemplate.Triggers>
@@ -102,49 +102,49 @@
         </Style>
 
         <Style x:Key="WindowChromeButton" TargetType="Button" BasedOn="{StaticResource ActionButton}">
-            <Setter Property="Width" Value="30"/>
-            <Setter Property="Height" Value="30"/>
-            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="Width" Value="24"/>
+            <Setter Property="Height" Value="24"/>
+            <Setter Property="FontSize" Value="10"/>
             <Setter Property="Padding" Value="0"/>
-            <Setter Property="Margin" Value="0,0,4,0"/>
+            <Setter Property="Margin" Value="0,0,3,0"/>
         </Style>
     </Window.Resources>
 
     <Grid>
-        <Image Source="/Assets/Pom500x500.png" Stretch="Fill"/>
+        <Image Source="/Assets/Pom400x400.png" Stretch="Fill"/>
 
-        <Grid Margin="70,48,70,56">
+        <Grid Margin="56,38,56,45">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
-                <RowDefinition Height="12"/>
+                <RowDefinition Height="10"/>
                 <RowDefinition Height="Auto"/>
-                <RowDefinition Height="12"/>
+                <RowDefinition Height="10"/>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
 
-            <Grid Grid.Row="0" Margin="0,0,0,10">
+            <Grid Grid.Row="0" Margin="0,0,0,8">
                 <TextBlock Text=" "
                            Foreground="#6b576d"
-                           FontSize="12"
+                           FontSize="10"
                            FontWeight="Bold"
                            VerticalAlignment="Center"
                            HorizontalAlignment="Left"
-                           Margin="-70,0,0,0"/>
+                           Margin="-56,0,0,0"/>
 
                 <Border Background="#00000000"
-                        Height="142"
+                        Height="114"
                         HorizontalAlignment="Stretch"
                         VerticalAlignment="Center"
-                        Margin="-45,-50,-40,0"
+                        Margin="-36,-40,-32,0"
                         MouseLeftButtonDown="DragArea_MouseLeftButtonDown"/>
 
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right"
-                            VerticalAlignment="Top" Margin="0,-45,50,0">
+                            VerticalAlignment="Top" Margin="0,-36,40,0">
                     <Button x:Name="BtnSettings"
                             Style="{StaticResource WindowChromeButton}"
                             Content="⚙"
-                            FontSize="15"
+                            FontSize="12"
                             ToolTip="Настройки"
                             Click="BtnSettings_Click"/>
                     <Button x:Name="BtnMinimize"
@@ -163,17 +163,17 @@
 
             <Border Grid.Row="1"
                     Background="#8C2A1742"
-                    CornerRadius="14"
+                    CornerRadius="11"
                     BorderBrush="#66FFD27A"
                     BorderThickness="1"
-                    Padding="2,8,2,14"
+                    Padding="2,6,2,11"
                     Margin="0,0,0,0">
                 <StackPanel>
                     <Grid HorizontalAlignment="Center">
                         <!-- Ghost layer: always-visible dim segments for digital dial effect -->
                         <TextBlock Text="00:00"
                                    FontFamily="{StaticResource DigitalFont}"
-                                   FontSize="82"
+                                   FontSize="66"
                                    Foreground="#FFFFF2CD"
                                    Opacity="0.10"
                                    HorizontalAlignment="Center"
@@ -181,11 +181,11 @@
                         <TextBlock x:Name="TbDisplay"
                                    Text="00:00"
                                    FontFamily="{StaticResource DigitalFont}"
-                                   FontSize="82"
+                                   FontSize="66"
                                    Foreground="#FFFFF2CD"
                                    HorizontalAlignment="Center">
                             <TextBlock.Effect>
-                                <DropShadowEffect Color="#FFFF9D4A" BlurRadius="22"
+                                <DropShadowEffect Color="#FFFF9D4A" BlurRadius="18"
                                                   ShadowDepth="0" Opacity="0.8"/>
                             </TextBlock.Effect>
                         </TextBlock>
@@ -193,16 +193,16 @@
 
                     <StackPanel Orientation="Horizontal"
                                 HorizontalAlignment="Center"
-                                Margin="0,10,0,2">
+                                Margin="0,8,0,2">
                         <RepeatButton x:Name="BtnMinDown"
                                       Style="{StaticResource ArrowButton}"
                                       Content="▼"
                                       Click="BtnMinDown_Click"/>
                         <TextBlock Text="минуты"
                                    Foreground="#FFE6D4F8"
-                                   FontSize="11"
+                                   FontSize="9"
                                    VerticalAlignment="Center"
-                                   Margin="12,0"/>
+                                   Margin="10,0"/>
                         <RepeatButton x:Name="BtnMinUp"
                                       Style="{StaticResource ArrowButton}"
                                       Content="▲"
@@ -214,23 +214,23 @@
             <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Center">
                 <TextBlock Text="Шаблоны:"
                            Foreground="#FFE6D4F8"
-                           FontSize="11"
+                           FontSize="9"
                            VerticalAlignment="Center"
-                           Margin="0,0,10,0"/>
+                           Margin="0,0,8,0"/>
                 <Button x:Name="BtnPreset15" Content="15 мин" Style="{StaticResource PresetButton}"
-                        Click="BtnPreset_Click" Tag="15" Margin="3,0"/>
+                        Click="BtnPreset_Click" Tag="15" Margin="2,0"/>
                 <Button x:Name="BtnPreset30" Content="30 мин" Style="{StaticResource PresetButton}"
-                        Click="BtnPreset_Click" Tag="30" Margin="3,0"/>
+                        Click="BtnPreset_Click" Tag="30" Margin="2,0"/>
                 <Button x:Name="BtnPreset45" Content="45 мин" Style="{StaticResource PresetButton}"
-                        Click="BtnPreset_Click" Tag="45" Margin="3,0"/>
+                        Click="BtnPreset_Click" Tag="45" Margin="2,0"/>
             </StackPanel>
 
             <Grid Grid.Row="5">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="8"/>
+                    <ColumnDefinition Width="6"/>
                     <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="8"/>
+                    <ColumnDefinition Width="6"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
 
@@ -239,7 +239,7 @@
                         Foreground="#FFD3FFAE" FontWeight="SemiBold"
                         Click="BtnStart_Click">
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="▶" Margin="0,0,5,0"/>
+                        <TextBlock Text="▶" Margin="0,0,4,0"/>
                         <TextBlock Text="СТАРТ"/>
                     </StackPanel>
                 </Button>
@@ -250,7 +250,7 @@
                         IsEnabled="False"
                         Click="BtnStop_Click">
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="⏸" Margin="0,0,5,0"/>
+                        <TextBlock Text="⏸" Margin="0,0,4,0"/>
                         <TextBlock Text="СТОП"/>
                     </StackPanel>
                 </Button>
@@ -260,7 +260,7 @@
                         Foreground="#FFFFC1C1" FontWeight="SemiBold"
                         Click="BtnReset_Click">
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="↺" Margin="0,0,5,0"/>
+                        <TextBlock Text="↺" Margin="0,0,4,0"/>
                         <TextBlock Text="СБРОС"/>
                     </StackPanel>
                 </Button>

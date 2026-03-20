@@ -221,6 +221,13 @@ public partial class MainWindow : Window
 
     private void BtnCompact_Click(object sender, RoutedEventArgs e) => SetCompactMode(!_isCompact);
 
+    // ─── Always on Top ────────────────────────────────────────────
+    internal void ApplyAlwaysOnTop(bool value)
+    {
+        Topmost = value;
+        Opacity = value ? 0.70 : 1.0;
+    }
+
     // ─── Settings ─────────────────────────────────────────────────
     private void BtnSettings_Click(object sender, RoutedEventArgs e)
     {

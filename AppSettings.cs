@@ -8,6 +8,7 @@ namespace PomodoroTimer
     {
         public string SelectedSoundPath { get; set; } = "";
         public bool StartWithWindows { get; set; } = true;
+        public bool AlwaysOnTop { get; set; } = false;
 
         private static readonly string SettingsDir =
             Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "PomodoroTimer");

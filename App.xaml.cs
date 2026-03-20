@@ -45,6 +45,7 @@ public partial class App : Application
         ApplyAutostart(Settings.StartWithWindows);
 
         _mainWindow = new MainWindow();
+        _mainWindow.ApplyAlwaysOnTop(Settings.AlwaysOnTop);
         _mainWindow.Show();
     }
 
@@ -65,6 +66,7 @@ public partial class App : Application
             Settings = dlg.Result;
             Settings.Save();
             ApplyAutostart(Settings.StartWithWindows);
+            _mainWindow?.ApplyAlwaysOnTop(Settings.AlwaysOnTop);
         }
     }
 

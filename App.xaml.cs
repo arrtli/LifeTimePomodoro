@@ -10,6 +10,7 @@ namespace PomodoroTimer;
 public partial class App : Application
 {
     private static Mutex? _singleInstanceMutex;
+    private static EventWaitHandle? _showWindowEvent;
     private TaskbarIcon? _trayIcon;
     private MainWindow? _mainWindow;
 
@@ -22,9 +23,28 @@ public partial class App : Application
         _singleInstanceMutex = new Mutex(true, "PomodoroTimer_SingleInstance", out bool isFirstInstance);
         if (!isFirstInstance)
         {
+            // Сигнализируем первому экземпляру — показать окно
+            try
+            {
+                using var ev = EventWaitHandle.OpenExisting("PomodoroTimer_ShowWindow");
+                ev.Set();
+            }
+            catch { }
             Shutdown();
             return;
         }
+
+        // Слушаем сигнал «показать окно» от последующих запусков
+        _showWindowEvent = new EventWaitHandle(false, EventResetMode.AutoReset, "PomodoroTimer_ShowWindow");
+        var listenerThread = new Thread(() =>
+        {
+            while (true)
+            {
+                _showWindowEvent.WaitOne();
+                Dispatcher.Invoke(ShowMainWindow);
+            }
+        }) { IsBackground = true };
+        listenerThread.Start();
 
         ShutdownMode = ShutdownMode.OnExplicitShutdown;
 

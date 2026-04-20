@@ -7,7 +7,7 @@ internal static class Localizer
     private const string DictUriBase = "pack://application:,,,/Localization/Strings.";
     private const string DictUriSuffix = ".xaml";
 
-    public static string Current { get; private set; } = "ru";
+    public static string Current { get; private set; } = "en";
 
     public static void Apply(string langCode)
     {

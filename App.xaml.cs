@@ -95,20 +95,22 @@ public partial class App : Application
 
     internal void ShowTrayNotification()
     {
+        var body    = Localizer.GetString("ToastBody");
+        var dismiss = Localizer.GetString("ToastDismiss");
         try
         {
             var xml = new XmlDocument();
-            xml.LoadXml("""
+            xml.LoadXml($"""
                 <toast scenario="alarm">
                   <visual>
                     <binding template="ToastGeneric">
                       <text>Pomodoro Timer</text>
-                      <text>Таймер завершён!</text>
+                      <text>{System.Security.SecurityElement.Escape(body)}</text>
                     </binding>
                   </visual>
                   <audio silent="true"/>
                   <actions>
-                    <action content="Закрыть" arguments="dismiss" activationType="system"/>
+                    <action content="{System.Security.SecurityElement.Escape(dismiss)}" arguments="dismiss" activationType="system"/>
                   </actions>
                 </toast>
                 """);
@@ -120,7 +122,7 @@ public partial class App : Application
             ToastNotificationManager.CreateToastNotifier().Show(notification);
         }
         catch {
-            _trayIcon?.ShowBalloonTip("Pomodoro Timer", "Таймер завершён!", BalloonIcon.Info);
+            _trayIcon?.ShowBalloonTip("Pomodoro Timer", body, BalloonIcon.Info);
         }
     }
 

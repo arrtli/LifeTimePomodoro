@@ -35,6 +35,10 @@
     <sys:String x:Key="TraySettings">Settings</sys:String>
     <sys:String x:Key="TrayExit">Exit</sys:String>
 
+    <!-- Toast notification -->
+    <sys:String x:Key="ToastBody">Timer finished!</sys:String>
+    <sys:String x:Key="ToastDismiss">Dismiss</sys:String>
+
     <!-- Hints / dynamic text -->
     <sys:String x:Key="HintDefault">The default Windows system sound will be used.</sys:String>
     <sys:String x:Key="SoundDefault">(System — Exclamation)</sys:String>

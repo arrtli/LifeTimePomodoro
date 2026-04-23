@@ -35,6 +35,10 @@
     <sys:String x:Key="TraySettings">設定</sys:String>
     <sys:String x:Key="TrayExit">結束</sys:String>
 
+    <!-- Toast notification -->
+    <sys:String x:Key="ToastBody">計時結束！</sys:String>
+    <sys:String x:Key="ToastDismiss">關閉</sys:String>
+
     <!-- Hints / dynamic text -->
     <sys:String x:Key="HintDefault">將使用預設 Windows 系統聲音。</sys:String>
     <sys:String x:Key="SoundDefault">（系統 — Exclamation）</sys:String>

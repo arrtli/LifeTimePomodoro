@@ -35,6 +35,10 @@
     <sys:String x:Key="TraySettings">Configuración</sys:String>
     <sys:String x:Key="TrayExit">Salir</sys:String>
 
+    <!-- Toast notification -->
+    <sys:String x:Key="ToastBody">¡Temporizador finalizado!</sys:String>
+    <sys:String x:Key="ToastDismiss">Cerrar</sys:String>
+
     <!-- Hints / dynamic text -->
     <sys:String x:Key="HintDefault">Se utilizará el sonido del sistema de Windows.</sys:String>
     <sys:String x:Key="SoundDefault">(Sistema — Exclamation)</sys:String>

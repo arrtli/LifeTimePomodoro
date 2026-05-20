@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tomatodo - Intuitive & Simple Pomodoro Timer for Windows</title>
+    <link rel="preload" as="image" href="assets/Silent%20Mode.png">
+    <link rel="preload" as="image" href="assets/MINIMIZE.png">
+    <link rel="preload" as="image" href="assets/TRANSPARENT.png">
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- FontAwesome для иконок -->
@@ -48,6 +51,11 @@
         ::-webkit-scrollbar-thumb:hover {
             background: #6d28d9;
         }
+
+        /* Модалка для полноразмерного просмотра скриншота */
+        .lightbox-open {
+            overflow: hidden;
+        }
     </style>
 </head>
 <body class="hero-bg min-h-screen flex flex-col justify-between">
@@ -57,8 +65,8 @@
         <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
             <!-- Логотип -->
             <div class="flex items-center gap-3">
-                <span class="text-3xl">🍅</span>
-                <span class="text-xl font-bold tracking-tight bg-gradient-to-r from-red-400 to-purple-400 bg-clip-text text-transparent">Tomatodo</span>
+                <img src="assets/Clean_48x48.png" alt="LifeTime Pomodoro logo" class="w-8 h-8 object-contain" />
+                <span class="text-xl font-bold tracking-tight bg-gradient-to-r from-violet-900 to-fuchsia-600 bg-clip-text text-transparent">LifeTime Pomodoro</span>
             </div>
             
             <!-- Меню -->
@@ -299,53 +307,61 @@
 
         <!-- Галерея скриншотов из Store -->
         <section id="screenshots" class="w-full border-t border-white/10 pt-16">
-            <h2 class="text-2xl md:text-3xl font-bold tracking-tight mb-8">Скриншоты Windows Store</h2>
+            <h2 class="text-2xl md:text-3xl font-bold tracking-tight text-gray-300 mb-8">Скриншоты Windows Store</h2>
             <div class="grid sm:grid-cols-3 gap-6">
                 <!-- Скриншот 1 -->
-                <div class="group relative rounded-xl overflow-hidden border border-white/10 bg-black/40 hover:border-purple-500/50 transition-all shadow-lg hover:shadow-purple-500/10">
-                    <div class="absolute inset-x-0 top-0 bg-gradient-to-b from-black/80 to-transparent p-4 z-10">
-                        <p class="text-xs uppercase tracking-widest font-bold text-gray-300">Скриншот 1</p>
-                        <h4 class="text-sm font-bold text-white">Intuitive & Simple</h4>
+                <div id="screenshot-1" class="group relative rounded-xl overflow-hidden border border-white/10 bg-black/40 hover:border-purple-500/50 transition-all shadow-lg hover:shadow-purple-500/10">
+                    <div class="absolute inset-x-0 top-0 bg-gradient-to-b from-black/80 to-transparent p-4 z-10 text-right">
+                        <h4 class="text-sm font-bold text-white">Transparent Mode</h4>
                     </div>
-                    <div class="aspect-video bg-gray-800 flex items-center justify-center text-gray-600 overflow-hidden">
-                        <div class="text-center p-4 group-hover:scale-105 transition-transform duration-300">
-                            <span class="text-4xl block mb-2">🖥️</span>
-                            <span class="text-xs text-gray-400">Главный экран на рабочем столе</span>
-                        </div>
+                    <div class="absolute inset-0 z-10 pointer-events-none flex items-center justify-center">
+                        <span class="text-xs text-gray-300 bg-black/35 px-3 py-1 rounded-md">Прозрачный режим поверх окон</span>
                     </div>
+                    <button type="button" class="open-screenshot-modal block w-full aspect-video bg-gray-800 overflow-hidden text-left" data-full-image="assets/TRANSPARENT.png" data-modal-title="Transparent Mode full-size screenshot" data-modal-alt="Transparent Mode full-size screenshot" aria-label="Open Transparent Mode screenshot full size">
+                        <img src="assets/TRANSPARENT.png" alt="Transparent Mode screenshot" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </button>
                 </div>
 
                 <!-- Скриншот 2 -->
-                <div class="group relative rounded-xl overflow-hidden border border-white/10 bg-black/40 hover:border-purple-500/50 transition-all shadow-lg hover:shadow-purple-500/10">
-                    <div class="absolute inset-x-0 top-0 bg-gradient-to-b from-black/80 to-transparent p-4 z-10">
-                        <p class="text-xs uppercase tracking-widest font-bold text-gray-300">Скриншот 2</p>
+                <div id="screenshot-2" class="group relative rounded-xl overflow-hidden border border-white/10 bg-black/40 hover:border-purple-500/50 transition-all shadow-lg hover:shadow-purple-500/10">
+                    <div class="absolute inset-x-0 top-0 bg-gradient-to-b from-black/80 to-transparent p-4 z-10 text-right">
                         <h4 class="text-sm font-bold text-white">Minimize Mode</h4>
                     </div>
-                    <div class="aspect-video bg-gray-800 flex items-center justify-center text-gray-600 overflow-hidden">
-                        <div class="text-center p-4 group-hover:scale-105 transition-transform duration-300">
-                            <span class="text-4xl block mb-2">🤏</span>
-                            <span class="text-xs text-gray-400">Мини-режим без лишних кнопок</span>
-                        </div>
+                    <div class="absolute inset-0 z-10 pointer-events-none flex items-center justify-center">
+                        <span class="text-xs text-gray-300 bg-black/35 px-3 py-1 rounded-md">Мини-режим без лишних кнопок</span>
                     </div>
+                    <button type="button" class="open-screenshot-modal block w-full aspect-video bg-gray-800 overflow-hidden text-left" data-full-image="assets/MINIMIZE.png" data-modal-title="Minimize Mode full-size screenshot" data-modal-alt="Minimize Mode full-size screenshot" aria-label="Open Minimize Mode screenshot full size">
+                        <img src="assets/MINIMIZE.png" alt="Minimize Mode screenshot" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </button>
                 </div>
 
                 <!-- Скриншот 3 -->
-                <div class="group relative rounded-xl overflow-hidden border border-white/10 bg-black/40 hover:border-purple-500/50 transition-all shadow-lg hover:shadow-purple-500/10">
-                    <div class="absolute inset-x-0 top-0 bg-gradient-to-b from-black/80 to-transparent p-4 z-10">
-                        <p class="text-xs uppercase tracking-widest font-bold text-gray-300">Скриншот 3</p>
-                        <h4 class="text-sm font-bold text-white">Always on Top</h4>
+                <div id="screenshot-3" class="group relative rounded-xl overflow-hidden border border-white/10 bg-black/40 hover:border-purple-500/50 transition-all shadow-lg hover:shadow-purple-500/10">
+                    <div class="absolute inset-x-0 top-0 bg-gradient-to-b from-black/80 to-transparent p-4 z-10 pointer-events-none text-right">
+                        <h4 class="text-sm font-bold text-white">Silen Mode</h4>
                     </div>
-                    <div class="aspect-video bg-gray-800 flex items-center justify-center text-gray-600 overflow-hidden">
-                        <div class="text-center p-4 group-hover:scale-105 transition-transform duration-300">
-                            <span class="text-4xl block mb-2">🪟</span>
-                            <span class="text-xs text-gray-400">Прозрачный режим поверх окон</span>
-                        </div>
+                    <div class="absolute inset-0 z-10 pointer-events-none flex items-center justify-center">
+                        <span class="text-xs text-gray-300 bg-black/25 px-3 py-1 rounded-md">Тихий режим с тост-уведомлением</span>
                     </div>
+                    <button type="button" class="open-screenshot-modal block w-full aspect-video bg-gray-800 overflow-hidden text-left" data-full-image="assets/Silent%20Mode.png" data-modal-title="Silen Mode full-size screenshot" data-modal-alt="Silen Mode full-size screenshot" aria-label="Open Silen Mode screenshot full size">
+                        <img src="assets/Silent%20Mode.png" alt="Silen Mode screenshot" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </button>
                 </div>
             </div>
         </section>
 
     </main>
+
+    <!-- Модальное окно полноразмерного скриншота -->
+    <div id="screenshot-modal" class="fixed inset-0 bg-black/90 z-[100] opacity-0 pointer-events-none transition-opacity duration-150 flex items-center justify-center p-4" role="dialog" aria-modal="true" aria-labelledby="screenshot-modal-title">
+        <div id="screenshot-modal-content" class="relative max-w-6xl w-full max-h-[92vh]">
+            <h3 id="screenshot-modal-title" class="sr-only">Screenshot full-size preview</h3>
+            <button id="close-screenshot-modal" type="button" class="absolute -top-3 -right-3 w-9 h-9 rounded-full bg-black/80 border border-white/20 text-white hover:bg-black flex items-center justify-center" aria-label="Close screenshot modal">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <img id="screenshot-modal-image" src="" alt="Screenshot full-size preview" class="w-full h-auto max-h-[92vh] object-contain rounded-xl border border-white/10 shadow-2xl" decoding="async" fetchpriority="high" />
+        </div>
+    </div>
 
     <!-- Футер -->
     <footer class="border-t border-white/10 bg-black/40 py-8">
@@ -401,6 +417,12 @@
         const aiGoalInput = document.getElementById('ai-goal-input');
         const btnGeneratePlan = document.getElementById('btn-generate-plan');
         const customApiKeyInput = document.getElementById('custom-api-key');
+        const openScreenshotButtons = document.querySelectorAll('.open-screenshot-modal');
+        const screenshotModal = document.getElementById('screenshot-modal');
+        const screenshotModalContent = document.getElementById('screenshot-modal-content');
+        const closeScreenshotModalBtn = document.getElementById('close-screenshot-modal');
+        const screenshotModalImage = document.getElementById('screenshot-modal-image');
+        const screenshotModalTitle = document.getElementById('screenshot-modal-title');
 
         function updateDisplay() {
             const minutes = Math.floor(timeLeft / 60);
@@ -661,6 +683,55 @@
         btnGeneratePlan.addEventListener('click', generateFocusPlan);
         aiGoalInput.addEventListener('keydown', (e) => {
             if (e.key === 'Enter') generateFocusPlan();
+        });
+
+        // Полноразмерный просмотр скриншота в модалке
+        function warmupScreenshot(fullImageSrc) {
+            const preloadImage = new Image();
+            preloadImage.src = fullImageSrc;
+            preloadImage.decode?.().catch(() => {});
+        }
+
+        function openScreenshotModal(fullImageSrc, modalTitle, modalAlt) {
+            screenshotModalImage.src = fullImageSrc;
+            screenshotModalImage.alt = modalAlt || 'Screenshot full-size preview';
+            screenshotModalTitle.textContent = modalTitle || 'Screenshot full-size preview';
+            screenshotModal.classList.remove('opacity-0', 'pointer-events-none');
+            document.body.classList.add('lightbox-open');
+        }
+
+        function closeScreenshotModal() {
+            screenshotModal.classList.add('opacity-0', 'pointer-events-none');
+            document.body.classList.remove('lightbox-open');
+        }
+
+        openScreenshotButtons.forEach((button) => {
+            const fullImageSrc = button.dataset.fullImage;
+            const modalTitle = button.dataset.modalTitle;
+            const modalAlt = button.dataset.modalAlt;
+
+            if (fullImageSrc) {
+                warmupScreenshot(fullImageSrc);
+            }
+
+            button.addEventListener('click', () => {
+                if (fullImageSrc) {
+                    openScreenshotModal(fullImageSrc, modalTitle, modalAlt);
+                }
+            });
+        });
+        closeScreenshotModalBtn.addEventListener('click', closeScreenshotModal);
+
+        screenshotModal.addEventListener('click', (e) => {
+            if (!screenshotModalContent.contains(e.target)) {
+                closeScreenshotModal();
+            }
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && !screenshotModal.classList.contains('pointer-events-none')) {
+                closeScreenshotModal();
+            }
         });
 
         // Инициализация отображения таймера при загрузке
